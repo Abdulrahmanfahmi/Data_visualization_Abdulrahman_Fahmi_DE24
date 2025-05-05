@@ -1,24 +1,29 @@
 from matplotlib.ticker import FuncFormatter
 
 
-def horizontal_bar_options(ax, **options):
-    ax.invert_yaxis()
-
-    ax.set_title(
-        label=options.get("title", ""),
-        pad=options.get("title_pad", 10),
-        loc="left",
-    )
-    ax.set_xlabel(options.get("xlabel", ""), loc="left")
-    ax.set_ylabel(options.get("ylabel", ""), rotation=options.get("ylabel_rotation", 0))
-    ax.yaxis.set_label_coords(
-        options.get("ylabel_x_coord", -0.1), options.get("ylabel_y_coord", 1)
-    )
-
-    ax.legend().remove()
-
+def horizontal_bar_options(ax, title=None, title_pad=None, xlabel=None, ylabel=None):
+    if title:
+        ax.set_title(title, pad=title_pad)
+    if xlabel:
+        ax.set_xlabel(xlabel)
+    if ylabel:
+        ax.set_ylabel(ylabel)
+    ax.grid(axis='x', linestyle='--', alpha=0.7)
     return ax
 
+# Definiera thousands_formatter funktionen
+def thousands_formatter(ax):
+    def format_func(value, tick_number):
+        return f"{int(value/1000)}K"
+    ax.xaxis.set_major_formatter(FuncFormatter(format_func))
+    return ax
+
+
+def save_fig_from_ax(ax, **options):
+    fig = ax.get_figure()
+    fig.tight_layout()   
+    fig.savefig(options.get("save_path", ""), dpi=options.get("dpi", 300))
+    
 
 def thousands_formatter(ax, axis="x"):
     formatter = FuncFormatter(
@@ -31,11 +36,5 @@ def thousands_formatter(ax, axis="x"):
     elif axis == "both":
         ax.xaxis.set_major_formatter(formatter)
         ax.yaxis.set_major_formatter(formatter)
-
     return ax
 
-
-def save_fig_from_ax(ax, **options):
-    fig = ax.get_figure()
-    fig.tight_layout()
-    fig.savefig(options.get("save_path", ""), dpi=options.get("dpi", 300))
