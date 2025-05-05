@@ -1,0 +1,36 @@
+
+figure.facecolor: white
+figure.dpi: 300
+figure.figsize:10,6
+figure.constrained_layout.use:False
+
+lines.linewidth: 3
+
+
+font.size: 10
+
+
+ytick.color: "#4A606C"
+xtick.color: "#4A606C"
+
+
+xtick.major.pad: 5
+ytick.major.pad: 10
+xtick.minor.pad: 4
+ytick.minor.pad: 4
+
+
+
+
+axes.labelpad: 7
+
+axes.spines.top: False
+axes.spines.right: False
+axes.labelweight: bold
+axes.labelsize: 10
+axes.titlesize: 14
+
+axes.edgecolor: "#CCC"
+
+axes.titlecolor: "#4A606C"
+axes.labelcolor: "#4A606C"
